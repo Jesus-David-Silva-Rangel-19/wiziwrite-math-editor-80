@@ -41,9 +41,10 @@
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* Title styles */
+/* Title styles - always use Alegreya font */
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 900;
+  font-family: 'Alegreya', serif !important;
+  font-weight: 900 !important;
   margin-top: 1em;
   margin-bottom: 0.5em;
   line-height: 1.2;
@@ -170,44 +171,51 @@ blockquote {
   box-sizing: border-box;
 }
 
-/* Markdown styling fixes */
+/* Markdown styling fixes - ensure Alegreya font for headings */
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  font-family: 'Alegreya', serif !important;
+  font-weight: 900 !important;
+}
+
 .ProseMirror h1 {
-  font-weight: 900;
   font-size: 30px;
 }
 
 .ProseMirror h2 {
-  font-weight: 900;
   font-size: 28px;
 }
 
 .ProseMirror h3 {
-  font-weight: 900;
   font-size: 24px;
 }
 
 .ProseMirror h4 {
-  font-weight: 900;
   font-size: 20px;
 }
 
 .ProseMirror h5 {
-  font-weight: 900;
   font-size: 18px;
 }
 
 .ProseMirror h6 {
-  font-weight: 900;
   font-size: 16px;
 }
 
-/* Ensure the Alegreya font is properly applied */
-.font-alegreya h1,
-.font-alegreya h2,
-.font-alegreya h3,
-.font-alegreya h4,
-.font-alegreya h5,
-.font-alegreya h6 {
-  font-family: 'Alegreya', serif;
-  font-weight: 900;
+/* Override font classes for headings to always use Alegreya */
+.font-labrada h1, .font-labrada h2, .font-labrada h3, .font-labrada h4, .font-labrada h5, .font-labrada h6,
+.font-patua h1, .font-patua h2, .font-patua h3, .font-patua h4, .font-patua h5, .font-patua h6,
+.font-special-elite h1, .font-special-elite h2, .font-special-elite h3, .font-special-elite h4, .font-special-elite h5, .font-special-elite h6,
+.font-copse h1, .font-copse h2, .font-copse h3, .font-copse h4, .font-copse h5, .font-copse h6,
+.font-im-fell h1, .font-im-fell h2, .font-im-fell h3, .font-im-fell h4, .font-im-fell h5, .font-im-fell h6,
+.font-young-serif h1, .font-young-serif h2, .font-young-serif h3, .font-young-serif h4, .font-young-serif h5, .font-young-serif h6,
+.font-belgrano h1, .font-belgrano h2, .font-belgrano h3, .font-belgrano h4, .font-belgrano h5, .font-belgrano h6,
+.font-jetbrains h1, .font-jetbrains h2, .font-jetbrains h3, .font-jetbrains h4, .font-jetbrains h5, .font-jetbrains h6,
+.font-alegreya h1, .font-alegreya h2, .font-alegreya h3, .font-alegreya h4, .font-alegreya h5, .font-alegreya h6 {
+  font-family: 'Alegreya', serif !important;
+  font-weight: 900 !important;
 }
