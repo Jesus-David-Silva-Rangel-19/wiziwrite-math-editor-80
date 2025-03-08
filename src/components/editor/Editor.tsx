@@ -90,23 +90,65 @@ const Editor = () => {
     const styles = document.createElement('style');
     styles.innerHTML = `
       .pdf-export {
-        font-size: 12pt;
+        font-size: 11pt !important;
         line-height: 1.5;
         color: #000;
-        padding: 20mm;
+        padding: 15mm;
         box-sizing: border-box;
+        width: 180mm; /* Keep content within A4 width minus margins */
+        overflow-wrap: break-word;
+        word-wrap: break-word;
       }
       
-      .pdf-export h1, .pdf-export h2, .pdf-export h3, 
+      .pdf-export h1 {
+        font-family: 'Alegreya', serif !important;
+        font-weight: 900 !important;
+        font-size: 20pt !important;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+      }
+      
+      .pdf-export h2 {
+        font-family: 'Alegreya', serif !important;
+        font-weight: 900 !important;
+        font-size: 18pt !important;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+      }
+      
+      .pdf-export h3 {
+        font-family: 'Alegreya', serif !important;
+        font-weight: 900 !important;
+        font-size: 16pt !important;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+      }
+      
       .pdf-export h4, .pdf-export h5, .pdf-export h6 {
-        font-family: 'Alegreya', serif;
-        font-weight: 900;
+        font-family: 'Alegreya', serif !important;
+        font-weight: 900 !important;
+        font-size: 14pt !important;
         margin-top: 1em;
         margin-bottom: 0.5em;
       }
       
       .pdf-export p {
-        margin-bottom: 1em;
+        margin-bottom: 0.8em;
+        max-width: 100%;
+      }
+      
+      .pdf-export img {
+        max-width: 100%;
+        height: auto;
+      }
+      
+      .pdf-export ul, .pdf-export ol {
+        padding-left: 1.5em;
+        margin-bottom: 0.8em;
+      }
+      
+      .pdf-export * {
+        max-width: 100%;
       }
     `;
     tempDiv.appendChild(styles);
@@ -122,11 +164,13 @@ const Editor = () => {
       x: 0,
       y: 0,
       width: 210, // A4 width in mm
-      windowWidth: 1000,
+      windowWidth: 800, // Narrower width for better scaling
       autoPaging: true,
-      margin: [10, 10, 10, 10],
+      margin: [10, 15, 10, 15], // Top, right, bottom, left margins
       html2canvas: {
-        scale: 2,
+        scale: 1.5, // Reduced from 2 for better proportions
+        letterRendering: true,
+        useCORS: true
       }
     });
   };
