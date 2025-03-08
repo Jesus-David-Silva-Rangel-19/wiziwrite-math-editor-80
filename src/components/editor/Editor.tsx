@@ -36,8 +36,8 @@ const Editor = () => {
         heading: {
           levels: [1, 2, 3, 4, 5, 6],
         },
-        bulletList: true,
-        orderedList: true,
+        bulletList: {},
+        orderedList: {},
       }),
       Underline,
       TaskList,
