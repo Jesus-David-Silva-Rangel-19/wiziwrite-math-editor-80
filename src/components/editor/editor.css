@@ -43,7 +43,6 @@
 
 /* Title styles */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Alegreya', serif;
   font-weight: 900;
   margin-top: 1em;
   margin-bottom: 0.5em;
@@ -51,27 +50,27 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 30px;
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 28px;
 }
 
 h3 {
-  font-size: 1.75rem;
+  font-size: 24px;
 }
 
 h4 {
-  font-size: 1.5rem;
+  font-size: 20px;
 }
 
 h5 {
-  font-size: 1.25rem;
+  font-size: 18px;
 }
 
 h6 {
-  font-size: 1rem;
+  font-size: 16px;
 }
 
 /* Paragraph styles */
@@ -170,4 +169,3 @@ blockquote {
   padding: 20px;
   box-sizing: border-box;
 }
-
