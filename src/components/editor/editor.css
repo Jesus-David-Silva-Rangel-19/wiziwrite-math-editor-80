@@ -1,0 +1,150 @@
+
+/* Base editor styles */
+.editor-content {
+  min-height: 70vh;
+}
+
+/* Font classes */
+.font-alegreya {
+  font-family: 'Alegreya', serif;
+}
+
+.font-labrada {
+  font-family: 'Labrada', serif;
+}
+
+.font-patua {
+  font-family: 'Patua One', cursive;
+}
+
+.font-special-elite {
+  font-family: 'Special Elite', cursive;
+}
+
+.font-copse {
+  font-family: 'Copse', serif;
+}
+
+.font-im-fell {
+  font-family: 'IM Fell DW Pica SC', serif;
+}
+
+.font-young-serif {
+  font-family: 'Young Serif', serif;
+}
+
+.font-belgrano {
+  font-family: 'Belgrano', serif;
+}
+
+.font-jetbrains {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Title styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Alegreya', serif;
+  font-weight: 900;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+/* Paragraph styles */
+p {
+  margin-bottom: 1em;
+  line-height: 1.6;
+}
+
+/* List styles */
+ul, ol {
+  margin-left: 1.5em;
+  margin-bottom: 1em;
+}
+
+ul li, ol li {
+  margin-bottom: 0.5em;
+}
+
+/* Code block styles */
+pre {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  padding: 1em;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 1em;
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  background-color: #f5f5f5;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+/* Blockquote styles */
+blockquote {
+  border-left: 4px solid #e2e8f0;
+  padding-left: 1em;
+  margin-left: 0;
+  font-style: italic;
+  margin-bottom: 1em;
+}
+
+/* Task list styles */
+.task-list {
+  list-style-type: none;
+  margin-left: 0;
+}
+
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.5em;
+}
+
+.task-item-checkbox {
+  margin-right: 0.5em;
+}
+
+/* Math component styles */
+.math-component {
+  margin: 1em 0;
+}
+
+.math-display {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+/* PDF export styles */
+.pdf-export {
+  padding: 20px;
+  box-sizing: border-box;
+}
