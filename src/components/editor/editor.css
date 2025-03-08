@@ -169,3 +169,45 @@ blockquote {
   padding: 20px;
   box-sizing: border-box;
 }
+
+/* Markdown styling fixes */
+.ProseMirror h1 {
+  font-weight: 900;
+  font-size: 30px;
+}
+
+.ProseMirror h2 {
+  font-weight: 900;
+  font-size: 28px;
+}
+
+.ProseMirror h3 {
+  font-weight: 900;
+  font-size: 24px;
+}
+
+.ProseMirror h4 {
+  font-weight: 900;
+  font-size: 20px;
+}
+
+.ProseMirror h5 {
+  font-weight: 900;
+  font-size: 18px;
+}
+
+.ProseMirror h6 {
+  font-weight: 900;
+  font-size: 16px;
+}
+
+/* Ensure the Alegreya font is properly applied */
+.font-alegreya h1,
+.font-alegreya h2,
+.font-alegreya h3,
+.font-alegreya h4,
+.font-alegreya h5,
+.font-alegreya h6 {
+  font-family: 'Alegreya', serif;
+  font-weight: 900;
+}
