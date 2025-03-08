@@ -36,8 +36,8 @@ const Editor = () => {
         heading: {
           levels: [1, 2, 3, 4, 5, 6],
         },
-        bulletList: {},
-        orderedList: {},
+        bulletList: {}, // Changed from true to an empty object to satisfy TypeScript
+        orderedList: {}, // Changed from true to an empty object to satisfy TypeScript
       }),
       Underline,
       TaskList,
