@@ -8,8 +8,7 @@ import TaskItem from '@tiptap/extension-task-item';
 import { Math } from '@/lib/tiptap-extensions/math-extension';
 import Toolbar from './Toolbar';
 import FontSelector from './FontSelector';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
+import html2pdf from 'html2pdf.js';
 import Footer from './Footer';
 import './editor.css';
 import TextStyle from '@tiptap/extension-text-style';
@@ -67,112 +66,27 @@ const Editor = () => {
   };
 
   const exportToPdf = () => {
-    if (!editor) return;
+    const element = document.querySelector('.editor-wrapper');
+    if (!element) return;
+
+    const opt = {
+      margin: 1,
+      filename: `${documentTitle}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+    };
+
+    // Clone the element to avoid modifying the original
+    const clone = element.cloneNode(true) as HTMLElement;
+    const content = clone.querySelector('.editor-content');
     
-    // Get the editor content as HTML
-    const editorContent = editor.getHTML();
-    
-    // Create a new jsPDF instance
-    const pdf = new jsPDF({
-      orientation: 'portrait',
-      unit: 'mm',
-      format: 'a4',
-    });
-    
-    // Create a temporary div to apply styling
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = editorContent;
-    tempDiv.classList.add('pdf-export');
-    tempDiv.classList.add(currentFont.value);
-    document.body.appendChild(tempDiv);
-    
-    // Add CSS styling to the temporary div
-    const styles = document.createElement('style');
-    styles.innerHTML = `
-      .pdf-export {
-        font-size: 11pt !important;
-        line-height: 1.5;
-        color: #000;
-        padding: 15mm;
-        box-sizing: border-box;
-        width: 180mm; /* Keep content within A4 width minus margins */
-        overflow-wrap: break-word;
-        word-wrap: break-word;
-      }
-      
-      .pdf-export h1 {
-        font-family: 'Alegreya', serif !important;
-        font-weight: 900 !important;
-        font-size: 20pt !important;
-        margin-top: 1em;
-        margin-bottom: 0.5em;
-      }
-      
-      .pdf-export h2 {
-        font-family: 'Alegreya', serif !important;
-        font-weight: 900 !important;
-        font-size: 18pt !important;
-        margin-top: 1em;
-        margin-bottom: 0.5em;
-      }
-      
-      .pdf-export h3 {
-        font-family: 'Alegreya', serif !important;
-        font-weight: 900 !important;
-        font-size: 16pt !important;
-        margin-top: 1em;
-        margin-bottom: 0.5em;
-      }
-      
-      .pdf-export h4, .pdf-export h5, .pdf-export h6 {
-        font-family: 'Alegreya', serif !important;
-        font-weight: 900 !important;
-        font-size: 14pt !important;
-        margin-top: 1em;
-        margin-bottom: 0.5em;
-      }
-      
-      .pdf-export p {
-        margin-bottom: 0.8em;
-        max-width: 100%;
-      }
-      
-      .pdf-export img {
-        max-width: 100%;
-        height: auto;
-      }
-      
-      .pdf-export ul, .pdf-export ol {
-        padding-left: 1.5em;
-        margin-bottom: 0.8em;
-      }
-      
-      .pdf-export * {
-        max-width: 100%;
-      }
-    `;
-    tempDiv.appendChild(styles);
-    
-    // Convert the styled HTML to text content for PDF
-    pdf.html(tempDiv, {
-      callback: function(pdf) {
-        // Save the PDF
-        pdf.save(`${documentTitle}.pdf`);
-        // Clean up the temporary div
-        document.body.removeChild(tempDiv);
-      },
-      x: 0,
-      y: 0,
-      width: 210, // A4 width in mm
-      windowWidth: 800, // Narrower width for better scaling
-      autoPaging: true,
-      margin: [10, 15, 10, 15], // Top, right, bottom, left margins
-      html2canvas: {
-        scale: 1.5, // Reduced from 2 for better proportions
-        letterRendering: true,
-        useCORS: true
-      }
-    });
+    // Add necessary styling to the clone for PDF export
+    if (content) {
+      content.classList.add('pdf-export');
+      content.classList.add(currentFont.value);
+      html2pdf().set(opt).from(content).save();
+    }
   };
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
