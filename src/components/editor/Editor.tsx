@@ -11,6 +11,8 @@ import FontSelector from './FontSelector';
 import html2pdf from 'html2pdf.js';
 import Footer from './Footer';
 import './editor.css';
+import TextStyle from '@tiptap/extension-text-style';
+import FontSize from '@/lib/tiptap-extensions/font-size';
 
 const fonts = [
   { name: 'Labrada', value: 'font-labrada' },
@@ -30,13 +32,21 @@ const Editor = () => {
 
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        heading: {
+          levels: [1, 2, 3, 4, 5, 6],
+        },
+        bulletList: true,
+        orderedList: true,
+      }),
       Underline,
       TaskList,
       TaskItem.configure({
         nested: true,
       }),
       Math,
+      TextStyle,
+      FontSize,
     ],
     content: '<h1>Welcome to the WiziWrite Editor!</h1><p>Start typing here...</p>',
     editorProps: {

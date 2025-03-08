@@ -1,21 +1,47 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Editor } from '@tiptap/react';
 import { 
   Bold, Italic, Underline, Heading1, Heading2, Heading3, 
   List, ListOrdered, CheckSquare, Code, Quote,
-  SquareCode
+  SquareCode, Type
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Toggle } from '@/components/ui/toggle';
 import { ToggleGroup } from '@/components/ui/toggle-group';
 import { Separator } from '@/components/ui/separator';
+import { 
+  Popover, 
+  PopoverContent, 
+  PopoverTrigger 
+} from '@/components/ui/popover';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
 
 interface ToolbarProps {
   editor: Editor;
 }
 
+const fontSizes = [
+  { label: '12px', value: '12px' },
+  { label: '14px', value: '14px' },
+  { label: '16px', value: '16px' },
+  { label: '18px', value: '18px' },
+  { label: '20px', value: '20px' },
+  { label: '24px', value: '24px' },
+  { label: '30px', value: '30px' },
+  { label: '36px', value: '36px' },
+];
+
 const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
+  const [fontSize, setFontSize] = useState('16px');
+
   if (!editor) {
     return null;
   }
@@ -25,6 +51,11 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
       type: 'math',
       attrs: { content: '\\sum_{i=1}^n i = \\frac{n(n+1)}{2}' }
     });
+  };
+
+  const setTextSize = (size: string) => {
+    setFontSize(size);
+    editor.chain().focus().setFontSize(size).run();
   };
 
   return (
@@ -60,6 +91,36 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
       
       <Separator orientation="vertical" className="mx-1 h-6" />
       
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button variant="outline" size="sm" className="flex items-center gap-1">
+            <Type className="h-4 w-4" />
+            <span>Tamaño: {fontSize}</span>
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-56 p-2">
+          <Select
+            value={fontSize}
+            onValueChange={setTextSize}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Seleccionar tamaño" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {fontSizes.map((size) => (
+                  <SelectItem key={size.value} value={size.value}>
+                    {size.label}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </PopoverContent>
+      </Popover>
+      
+      <Separator orientation="vertical" className="mx-1 h-6" />
+      
       <ToggleGroup type="single" className="flex flex-wrap">
         <Toggle
           size="sm"
@@ -86,6 +147,33 @@ const Toolbar: React.FC<ToolbarProps> = ({ editor }) => {
           aria-label="Heading 3"
         >
           <Heading3 className="h-4 w-4" />
+        </Toggle>
+        
+        <Toggle
+          size="sm"
+          pressed={editor.isActive('heading', { level: 4 })}
+          onPressedChange={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
+          aria-label="Heading 4"
+        >
+          <span className="text-xs font-bold">H4</span>
+        </Toggle>
+        
+        <Toggle
+          size="sm"
+          pressed={editor.isActive('heading', { level: 5 })}
+          onPressedChange={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
+          aria-label="Heading 5"
+        >
+          <span className="text-xs font-bold">H5</span>
+        </Toggle>
+        
+        <Toggle
+          size="sm"
+          pressed={editor.isActive('heading', { level: 6 })}
+          onPressedChange={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
+          aria-label="Heading 6"
+        >
+          <span className="text-xs font-bold">H6</span>
         </Toggle>
         
         <Toggle
