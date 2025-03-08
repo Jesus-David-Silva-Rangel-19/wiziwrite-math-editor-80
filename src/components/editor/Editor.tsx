@@ -8,7 +8,8 @@ import TaskItem from '@tiptap/extension-task-item';
 import { Math } from '@/lib/tiptap-extensions/math-extension';
 import Toolbar from './Toolbar';
 import FontSelector from './FontSelector';
-import html2pdf from 'html2pdf.js';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 import Footer from './Footer';
 import './editor.css';
 import TextStyle from '@tiptap/extension-text-style';
@@ -66,27 +67,68 @@ const Editor = () => {
   };
 
   const exportToPdf = () => {
-    const element = document.querySelector('.editor-wrapper');
-    if (!element) return;
-
-    const opt = {
-      margin: 1,
-      filename: `${documentTitle}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-    };
-
-    // Clone the element to avoid modifying the original
-    const clone = element.cloneNode(true) as HTMLElement;
-    const content = clone.querySelector('.editor-content');
+    if (!editor) return;
     
-    // Add necessary styling to the clone for PDF export
-    if (content) {
-      content.classList.add('pdf-export');
-      content.classList.add(currentFont.value);
-      html2pdf().set(opt).from(content).save();
-    }
+    // Get the editor content as HTML
+    const editorContent = editor.getHTML();
+    
+    // Create a new jsPDF instance
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4',
+    });
+    
+    // Create a temporary div to apply styling
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = editorContent;
+    tempDiv.classList.add('pdf-export');
+    tempDiv.classList.add(currentFont.value);
+    document.body.appendChild(tempDiv);
+    
+    // Add CSS styling to the temporary div
+    const styles = document.createElement('style');
+    styles.innerHTML = `
+      .pdf-export {
+        font-size: 12pt;
+        line-height: 1.5;
+        color: #000;
+        padding: 20mm;
+        box-sizing: border-box;
+      }
+      
+      .pdf-export h1, .pdf-export h2, .pdf-export h3, 
+      .pdf-export h4, .pdf-export h5, .pdf-export h6 {
+        font-family: 'Alegreya', serif;
+        font-weight: 900;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+      }
+      
+      .pdf-export p {
+        margin-bottom: 1em;
+      }
+    `;
+    tempDiv.appendChild(styles);
+    
+    // Convert the styled HTML to text content for PDF
+    pdf.html(tempDiv, {
+      callback: function(pdf) {
+        // Save the PDF
+        pdf.save(`${documentTitle}.pdf`);
+        // Clean up the temporary div
+        document.body.removeChild(tempDiv);
+      },
+      x: 0,
+      y: 0,
+      width: 210, // A4 width in mm
+      windowWidth: 1000,
+      autoPaging: true,
+      margin: [10, 10, 10, 10],
+      html2canvas: {
+        scale: 2,
+      }
+    });
   };
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
